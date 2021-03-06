@@ -14,47 +14,48 @@ let enemyAttack = 12;
 // "LOSE" - Player health less than 0
 
 var fight = function(enemyName) {
-    let promptFight = "fight" // window.prompt("u fightin bro?\nFIGHT or SKIP ???")
-    
+    while (enemyHealth > 0 && playerHealth > 0) {
 
-    while (enemyHealth > 0) {
-        if (promptFight === "fight" || promptFight === "FIGHT") {
-            //console.log(`${playerName}, the ghift has beginned.`)
-            //Subtract the value of `playerAttack` from the value of `enemyHealth` and use that result to update the value in the `enemyHealth` variable
-            enemyHealth = enemyHealth - playerAttack;
-            // Log a resulting message to the console so we know that it worked.
-            console.log(`${playerName} attacked ${enemyName}. ${enemyName} now has ${enemyHealth} remaining.`)
-            if (enemyHealth <= 0) {
-                // console.log(`${enemyName} has died!`)
-            }
-            else {
-                // console.log(`${enemyName} still has ${enemyHealth} health remaining.`)
-            }
-            // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-            playerHealth = playerHealth - enemyAttack;
-            // Log a resulting message to the console so we know that it worked.
-            console.log(`${enemyName} attacked ${playerName}. ${playerName} now has ${playerHealth} remaining.`)
-            if (playerHealth <= 0) {
-                // console.log(`${playerName} has died!`)
-            }
-            else {
-                // console.log(`${playerName} still has ${playerHealth} health remaining.`)
-            }
-        } else if (promptFight === "skip" || promptFight === "SKIP") {
-            let confirmSkip = window.confirm("Are you certain you would like to quit?");
+        let promptFight = window.prompt("u fightin bro?\nFIGHT or SKIP ???")
+
+        if (promptFight === "skip" || promptFight === "SKIP") {
+            let confirmSkip = window.confirm("Are you certain you would like to skip this opponent?");
             if (confirmSkip) {
                 console.log(`${playerName} has decided to skip this fight. SEE YA!!`)
-                playerMoney = playerMoney -2;
-            } else {
-                fight();
+                playerMoney = playerMoney - 10;
+                console.log(`${playerMoney}, player moneys`)
+                break;
             }
+        } // else {
+        //     console.log("Please enter a valid response. Try again!")
+        //     fight(enemyName)
+        // }
+
+        //subtract enemyHealth
+        enemyHealth = enemyHealth - playerAttack;
+        console.log(`${playerName} attacked ${enemyName}. ${enemyName} now has ${enemyHealth} remaining.`)
+        if (enemyHealth <= 0) {
+            console.log(`${enemyName} has died!`)
+            playerMoney += 20;
+            break;
         } else {
-            console.log("Please enter a valid response. Try again!")
+            // console.log(`${enemyName} still has ${enemyHealth} health remaining.`)
         }
+
+        // Subtract playerHealth
+        playerHealth = playerHealth - enemyAttack;
+        console.log(`${enemyName} attacked ${playerName}. ${playerName} now has ${playerHealth} remaining.`)
+        if (playerHealth <= 0) {
+            console.log(`${playerName} has died!`)
+            break;
+        } else {
+            // console.log(`${playerName} still has ${playerHealth} health remaining.`)
+        } 
     }
 }
 
 for (var i = 0; i < enemyNames.length; i++) {
+    // debugger;
     let pickedEnemyName = enemyNames[i]
     enemyHealth = 50;
     fight(pickedEnemyName);
