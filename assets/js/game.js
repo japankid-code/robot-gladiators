@@ -13,6 +13,11 @@ let enemyAttack = 12;
 //   * defeat each one
 // "LOSE" - Player health less than 0
 
+var randomNumber = function(min, max) {
+    let value = Math.floor(Math.random() * (max - min + 1) + min);
+    return value;
+}
+
 var fight = function(enemyName) {
     while (enemyHealth > 0 && playerHealth > 0) {
         let promptFight = window.prompt("u fightin bro?\nFIGHT or SKIP ???")
@@ -25,18 +30,18 @@ var fight = function(enemyName) {
                 break;
             }
         }
-
         //subtract enemyHealth
-        enemyHealth = Math.max(0, enemyHealth - enemyAttack);
+        let damage = randomNumber(playerAttack - 3, playerAttack)
+        enemyHealth = Math.max(0, enemyHealth - damage);
         console.log(`${playerName} attacked ${enemyName}. ${enemyName} now has ${enemyHealth} remaining.`)
         if (enemyHealth <= 0) {
             console.log(`${enemyName} has died!`)
             playerMoney += 20;
             break;
         } else {};
-
         // Subtract playerHealth
-        playerHealth = Math.max(0, playerHealth - enemyAttack);
+        damage = randomNumber(enemyAttack - 3, enemyAttack)
+        playerHealth = Math.max(0, playerHealth - damage);
         console.log(`${enemyName} attacked ${playerName}. ${playerName} now has ${playerHealth} remaining.`)
         if (playerHealth <= 0) {
             console.log(`${playerName} has died!`)
@@ -51,6 +56,8 @@ var startGame = function() {
     playerHealth = 100;
     playerAttack = 10;
     playerMoney = 10;
+    enemyHealth = randomNumber(40, 60);
+    enemyAttack = 12;
     for (var i = 0; i < enemyNames.length; i++) {
         if (playerHealth > 0) {
             window.alert(`Welcome to Robot Gladiators! Round ${i + 1}`)
