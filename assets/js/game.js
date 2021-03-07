@@ -55,7 +55,7 @@ var fight = function(enemyName) {
 }
 
 var startGame = function() {
-    //debugger; 
+    // debugger; 
     // reset player stats at the start of the game
     playerHealth = 100;
     playerAttack = 10;
@@ -66,6 +66,10 @@ var startGame = function() {
             let pickedEnemyName = enemyNames[i]
             enemyHealth = 50;
             fight(pickedEnemyName);
+            if (i < enemyNames.length -1) {
+                var storeConfirm = window.confirm("Would you like to go to the shop?")
+                shop();
+            }
         } else {
             window.alert("You have lost in your robot battle! GAME OVER!!!")
             break;
@@ -88,6 +92,36 @@ var endGame = function() {
         startGame();
     } else {
         window.alert("Thanks for playing, come back SOOOOOOOOON!")
+    }
+}
+
+var shop = function() {
+    var shopOptionPrompt = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+    switch (shopOptionPrompt) {
+        case "REFILL":
+        case "refill":
+            if (playerMoney >= 7) {
+                window.alert("Refilling the player's health by 20 for 7 buckaroos")
+                playerHealth += 20;
+                playerMoney -= 7;
+                break;
+            }
+        case "UPGRADE":
+        case "upgrade":
+            if (playerMoney >= 7) {
+                window.alert("upgrading player's attack by +6 for 7 player moneys")
+                playerAttack += 6;
+                playerMoney -= 7;
+                break;
+            }
+        case "LEAVE":
+        case "leave":
+            window.alert("leaving the store presently.")
+            break;
+        default:
+            window.alert("You did not pick a valid option. Try AGAIN!!!!!")
+            shop();
+            break;
     }
 }
 
