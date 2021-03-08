@@ -3,20 +3,33 @@ var playerInfo = {
     health: 100,
     attack: 10,
     money: 10,
+    reset: function() {
+        this.health = 100;
+        this.money = 10;
+        this.attack = 10;
+    },
+    refillHealth: function() {
+        this.health += 20;
+        this.money -= 7;
+    },
+    upgradeAttack: function() {
+        this.attack += 6;
+        this.money -= 7;
+    }
 }
 
 var enemyInfo = [
     {
         name: "Roborto",
-        attack: 12
+        attack: randomNumber(10, 14)
     },
     {
         name: "Annabelle Android",
-        attack: 13
+        attack: randomNumber(10, 14)
     },
     {
         name: "ROBBY TREMMMBLES",
-        attack: 14
+        attack: randomNumber(10, 14)
     }
 ]
 
@@ -26,7 +39,7 @@ var enemyInfo = [
 //   * defeat each one
 // "LOSE" - Player health less than 0
 
-var randomNumber = function(min, max) {
+function randomNumber(min, max) {
     let value = Math.floor(Math.random() * (max - min + 1) + min);
     return value;
 }
@@ -66,9 +79,7 @@ var fight = function(enemy) {
 var startGame = function() {
     // debugger; 
     // reset player stats at the start of the game
-    playerInfo.health = 100;
-    playerInfo.attack = 10;
-    playerInfo.money = 10;
+    playerInfo.reset();
     for (var i = 0; i < enemyInfo.length; i++) {
         if (playerInfo.health > 0) {
             window.alert(`Welcome to Robot Gladiators! Round ${i + 1}`)
@@ -111,16 +122,14 @@ var shop = function() {
         case "refill":
             if (playerInfo.money >= 7) {
                 window.alert("Refilling the player's health by 20 for 7 buckaroos")
-                playerInfo.health += 20;
-                playerInfo.money -= 7;
+                playerInfo.refillHealth();
                 break;
             }
         case "UPGRADE":
         case "upgrade":
             if (playerInfo.money >= 7) {
                 window.alert("upgrading player's attack by +6 for 7 player moneys")
-                playerInfo.attack += 6;
-                playerInfo.money -= 7;
+                playerInfo.upgradeAttack();
                 break;
             }
         case "LEAVE":
