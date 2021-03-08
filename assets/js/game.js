@@ -9,12 +9,23 @@ var playerInfo = {
         this.attack = 10;
     },
     refillHealth: function() {
-        this.health += 20;
-        this.money -= 7;
+        if (this.money >= 7) {
+            window.alert("Refilling the player's health by 20 for 7 buckaroos");
+            this.health += 20;
+            this.money -= 7;
+        } else {
+            window.alert("You don't have enough money!!")
+        }
     },
     upgradeAttack: function() {
-        this.attack += 6;
-        this.money -= 7;
+        window.alert("upgrading player's attack by +6 for 7 player moneys");
+        if (this.money >= 7) {
+            this.attack += 6;
+            this.money -= 7;
+        } else {
+            window.alert("You don't have enough money!!")
+        }
+        
     }
 }
 
@@ -120,18 +131,12 @@ var shop = function() {
     switch (shopOptionPrompt) {
         case "REFILL":
         case "refill":
-            if (playerInfo.money >= 7) {
-                window.alert("Refilling the player's health by 20 for 7 buckaroos")
-                playerInfo.refillHealth();
-                break;
-            }
+            playerInfo.refillHealth();
+            break;
         case "UPGRADE":
         case "upgrade":
-            if (playerInfo.money >= 7) {
-                window.alert("upgrading player's attack by +6 for 7 player moneys")
-                playerInfo.upgradeAttack();
-                break;
-            }
+            playerInfo.upgradeAttack();
+            break;
         case "LEAVE":
         case "leave":
             window.alert("leaving the store presently.")
